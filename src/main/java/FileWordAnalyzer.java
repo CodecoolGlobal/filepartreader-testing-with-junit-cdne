@@ -14,31 +14,31 @@ public class FileWordAnalyzer {
         this.filePartReader = filePartReader;
     }
 
-    public List<String> getWordsOrderedAlphabetically () throws IOException {
-        fileSetup();
+    public List<String> getWordsOrderedAlphabetically (){
+        addWordsToArray();
         return stringList.stream().sorted().collect(Collectors.toList());
     }
 
-    public List<String> getWordsContainingSubstring (String subString ) throws IOException {
-        fileSetup();
+    public List<String> getWordsContainingSubstring (String subString ) {
+        addWordsToArray();
         return stringList.stream().filter(s -> s.contains(subString)).collect(Collectors.toList());
     }
 
-    public List<String> getStringsWhichPalindromes () throws IOException {
-        fileSetup();
+    public List<String> getStringsWhichPalindromes (){
+        addWordsToArray();
         return stringList.stream().filter(this::checkIfIsPalindrome).collect(Collectors.toList());
 
     }
 
 
-    private void fileSetup() throws IOException {
+    public void addWordsToArray(){
         stringList.clear();
-        fileLines = filePartReader.readLines();
+        fileLines = filePartReader.read();
         String[] strings = fileLines.split("\\W+");
         stringList = new ArrayList<>(Arrays.asList(strings));
     }
 
-    public boolean checkIfIsPalindrome(String word){
+    private boolean checkIfIsPalindrome(String word){
         int remainder, temp, sum = 0;
         int wordLength = word.length();
         temp = wordLength;
@@ -47,9 +47,7 @@ public class FileWordAnalyzer {
             sum = (sum * 10) + remainder;
             wordLength /= 10;
         }
-
         return temp == sum;
-
     }
 
 }
