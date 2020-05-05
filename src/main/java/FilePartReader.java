@@ -11,7 +11,7 @@ public class FilePartReader {
     private Integer toLine;
     private String result;
 
-    FilePartReader(){
+    public FilePartReader(){
         result = "";
         file = new File("file.txt");
         fileReader = null;
@@ -24,13 +24,13 @@ public class FilePartReader {
         this.fromLine = fromLine;
         this.toLine = toLine;
         if(toLine < fromLine || fromLine < 1){
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("IllegalArgumentException");
         }
     }
 
     public String read() {
         result = "";
-        result = bufferedReader.lines().collect(Collectors.joining(System.lineSeparator()));
+        result = bufferedReader.lines().collect(Collectors.joining("\n"));
         return result;
     }
 
